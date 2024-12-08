@@ -11,7 +11,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class InstructorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instructors
-        fields = '__all__'
+        fields = ['full_name']
+
+
+class InstructorsDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instructors
+        fields = ['full_name', 'instructor_bio', 'instructor_image']
 
 
 class StudentsSerializer(serializers.ModelSerializer):
@@ -23,12 +29,6 @@ class StudentsSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
-
-
-class CourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
         fields = '__all__'
 
 
@@ -77,4 +77,19 @@ class CertificateSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
+        fields = '__all__'
+
+
+class CourseListSerializer(serializers.ModelSerializer):
+    course = InstructorsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Course
+        fields = ['course_name', 'course_image', 'instructorS',
+                  'price']
+
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
         fields = '__all__'

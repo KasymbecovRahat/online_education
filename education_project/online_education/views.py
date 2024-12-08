@@ -25,7 +25,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+    serializer_class = CourseListSerializer
 
 
 class CartViewSet(viewsets.ModelViewSet):
