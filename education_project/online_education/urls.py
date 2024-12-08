@@ -24,3 +24,4 @@ router.register(r'reviews', ReviewViewSet, basename='reviews_list')
 urlpatterns = [
     path('', include(router.urls)),
 ]
+

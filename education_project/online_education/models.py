@@ -25,6 +25,12 @@ class Instructors(models.Model):
     def __str__(self):
         return f'{self.full_name} {self.instructor_bio} {self.user_profile}'
 
+    def get_avg_rating(self):
+        ratings = self.instructors_review.all()
+        if ratings.exists():
+            return round(sum(i.rating for i in ratings) / ratings.count(), 1)
+        return 0
+
 
 class Students(models.Model):
     full_name = models.CharField(max_length=50)
@@ -61,6 +67,20 @@ class Course(models.Model):
 
     def __str__(self):
         return f'{self.course_name} {self.price} {self.category}'
+
+    def get_avg_rating(self):
+        ratings = self.review_course.all()
+        if ratings.exists():
+            return round(sum(i.rating for i in ratings) / ratings.count(), 1)
+        return 0
+
+    def get_total_people(self):
+        ratings = self.review_course.all()
+        if ratings.exists():
+            if ratings.count() > 3:
+                return f'3+'
+            return ratings.count()
+        return 0
 
 
 class Cart(models.Model):
@@ -136,6 +156,7 @@ class Certificate(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='review_user')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='review_course')
+    instructor = models.ForeignKey(Instructors, on_delete=models.CASCADE, related_name='instructors_review')
     rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)], verbose_name='Рейтинг')
     comment = models.TextField()
 
