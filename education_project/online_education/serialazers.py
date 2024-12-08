@@ -90,6 +90,9 @@ class CourseListSerializer(serializers.ModelSerializer):
 
 
 class CourseDetailSerializer(serializers.ModelSerializer):
+    course = InstructorsDetailSerializer(many=True, read_only=True)
+
     class Meta:
         model = Course
-        fields = '__all__'
+        fields = ['course_name', 'description', 'category', 'level',
+                  'price', 'created_by', 'created_at', 'update_at', 'course_image', 'course']
