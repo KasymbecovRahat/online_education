@@ -45,7 +45,7 @@ class Course(models.Model):
     )
     level = models.CharField(max_length=16, choices=LEVEL_CHOICES, default='начальный')
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    created_by = models.ForeignKey(Instructors, )
+    created_by = models.ForeignKey(Instructors, on_delete=models.CASCADE, related_name='created_by_course')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(null=True, blank=True)
 
@@ -76,7 +76,7 @@ class Exam(models.Model):
     title = models.CharField(max_length=50)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='exams')
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_exams')
-    #passing_score
+    passing_score = models.IntegerField(choices=[(i, str(i)) for i in range(1, 101)], verbose_name='Баллы')
     duration = models.DateTimeField(null=True, blank=True)
 
 
@@ -84,7 +84,7 @@ class Certificate(models.Model):
     students = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='certificate')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_certificate')
     issued_at = models.DateTimeField(null=True, blank=True)
-    certificate_url = models.URLField()
+    certificate_url = models.FileField()
 
 
 class Review(models.Model):
