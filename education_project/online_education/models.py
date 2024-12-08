@@ -127,7 +127,7 @@ class Certificate(models.Model):
     students = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='certificate')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_certificate')
     issued_at = models.DateTimeField(null=True, blank=True)
-    certificate_url = models.FileField
+    certificate_url = models.FileField()
 
     def __str__(self):
         return f'{self.certificate_url}, {self.course}'
