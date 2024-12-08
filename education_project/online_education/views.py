@@ -1,13 +1,6 @@
 from rest_framework import viewsets
-from .models import (
-    UserProfile, Instructors, Students, Category, Course, Cart, CarItem,
-    Lesson, Assignment, Question, Exam, Certificate, Review
-)
-from .serializers import (
-    UserProfileSerializer, InstructorsSerializer, StudentsSerializer, CategorySerializer,
-    CourseSerializer, CartSerializer, CarItemSerializer, LessonSerializer, AssignmentSerializer,
-    QuestionSerializer, ExamSerializer, CertificateSerializer, ReviewSerializer
-)
+from .models import *
+from .serialazers import *
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
