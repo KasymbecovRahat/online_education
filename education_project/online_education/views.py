@@ -1,6 +1,6 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from .models import *
-from .serializers import *
+from .serialazers import *
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -26,6 +26,16 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+
+class CarItemViewSet(viewsets.ModelViewSet):
+    queryset = CarItem.objects.all()
+    serializer_class = CarItemSerializer
 
 
 class LessonViewSet(viewsets.ModelViewSet):
@@ -56,7 +66,4 @@ class CertificateViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-
-
-
 

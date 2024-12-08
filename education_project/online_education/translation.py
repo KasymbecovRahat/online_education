@@ -1,4 +1,5 @@
-from .models import Course, Instructors, Category, Exam, Certificate
+from .models import (Course, Instructors, Category, Exam,
+                     Certificate, Review)
 from modeltranslation.translator import TranslationOptions, register
 
 
@@ -24,4 +25,9 @@ class ProductTranslationOptions(TranslationOptions):
 
 @register(Certificate)
 class ProductTranslationOptions(TranslationOptions):
-    fields = ('students', 'course', 'issued_at',)
+    fields = ('students', 'course', 'issued_at', 'certificate_url')
+
+
+@register(Review)
+class ProductTranslationOptions(TranslationOptions):
+    fields = ('rating', 'comment')
