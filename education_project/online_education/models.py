@@ -31,6 +31,12 @@ class Instructors(models.Model):
             return round(sum(i.rating for i in ratings) / ratings.count(), 1)
         return 0
 
+    def get_total_people(self):
+        ratings = self.course.all()
+        if ratings.exists():
+            return ratings.count()
+        return 0
+
 
 class Students(models.Model):
     full_name = models.CharField(max_length=50)
@@ -64,6 +70,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(null=True, blank=True)
     instructorS = models.ForeignKey(Instructors, on_delete=models.CASCADE, related_name='course')
+    course_image = models.ImageField(upload_to='course_image/')
 
     def __str__(self):
         return f'{self.course_name} {self.price} {self.category}'
@@ -77,8 +84,6 @@ class Course(models.Model):
     def get_total_people(self):
         ratings = self.review_course.all()
         if ratings.exists():
-            if ratings.count() > 3:
-                return f'3+'
             return ratings.count()
         return 0
 
@@ -125,22 +130,28 @@ class Assignment(models.Model):
         return f'{self.title} {self.course} {self.lesson}'
 
 
-class Question(models.Model):
-    question_name = models.TextField()
-
-    def __str__(self):
-        return self.question_name
-
-
 class Exam(models.Model):
     title = models.CharField(max_length=50)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='exams')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_exams')
     passing_score = models.IntegerField(choices=[(i, str(i)) for i in range(1, 101)], verbose_name='Баллы')
     duration = models.DateTimeField(null=True, blank=True)
+    students = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='students_exam')
+    instructors = models.ForeignKey(Instructors, on_delete=models.CASCADE, related_name='instructors_exam')
 
     def __str__(self):
         return f'{self.title} {self.course} {self.passing_score}'
+
+
+class Question(models.Model):
+    question_name = models.CharField(max_length=100)
+    var1 = models.CharField(max_length=55)
+    var2 = models.CharField(max_length=55)
+    var3 = models.CharField(max_length=55)
+    var4 = models.CharField(max_length=55)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, related_name='question')
+
+    def __str__(self):
+        return self.question_name
 
 
 class Certificate(models.Model):
