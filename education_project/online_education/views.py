@@ -70,7 +70,7 @@ class CourseListAPIView(generics.ListAPIView):
 
 class CourseDetailAPIView(generics.RetrieveAPIView):
     queryset = Course.objects.all()
-    serializer_class = CourseListSerializer
+    serializer_class = CourseDetailSerializer
 
 
 class CartViewSet(viewsets.ModelViewSet):
@@ -98,9 +98,19 @@ class QuestionViewSet(viewsets.ModelViewSet):
     serializer_class = QuestionSerializer
 
 
+class ExamListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Exam.objects.all()
+    serializer_class = ExamInstructorSerializer
+
+
+class ExamRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Exam.objects.all()
+    serializer_class = ExamInstructorSerializer
+
+
 class ExamViewSet(viewsets.ModelViewSet):
     queryset = Exam.objects.all()
-    serializer_class = ExamSerializer
+    serializer_class = ExamStudentsSerializer
 
 
 class CertificateViewSet(viewsets.ModelViewSet):

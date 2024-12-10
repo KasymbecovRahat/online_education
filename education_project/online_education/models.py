@@ -78,8 +78,6 @@ class Course(models.Model):
     def get_total_people(self):
         ratings = self.review_course.all()
         if ratings.exists():
-            if ratings.count() > 3:
-                return f'3+'
             return ratings.count()
         return 0
 
