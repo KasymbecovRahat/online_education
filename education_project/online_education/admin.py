@@ -9,12 +9,8 @@ class AssignmentInLine(admin.TabularInline):
     extra = 1
 
 
-
 class LessonAdmin(admin.ModelAdmin):
     inlines = [AssignmentInLine]
-
-
-
 
 
 @admin.register(Course)
@@ -30,10 +26,12 @@ class CourseAdmin(TranslationAdmin):
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
 
+
 admin.site.register(UserProfile)
 admin.site.register(Instructors)
 admin.site.register(Students)
 admin.site.register(Cart)
+admin.site.register(Category)
 admin.site.register(CarItem)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Exam)
