@@ -12,7 +12,6 @@ router.register(r'car_items', CarItemViewSet, basename='car_items_list')
 router.register(r'lessons', LessonViewSet, basename='lessons_list')
 router.register(r'assignments', AssignmentViewSet, basename='assignments')
 router.register(r'questions', QuestionViewSet, basename='questions_list')
-router.register(r'exams', ExamViewSet, basename='exams_list')
 router.register(r'certificates', CertificateViewSet, basename='certificates_list')
 router.register(r'reviews', ReviewViewSet, basename='reviews_list')
 
@@ -24,6 +23,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('course/', CourseListAPIView.as_view(), name='course_list'),
     path('course/<int:pk>/', CourseDetailAPIView.as_view(), name='course_detail'),
+    path('exam/', ExamListCreateAPIView.as_view(), name='exam_list'),
+    path('exam/<int:pk>/', ExamRetrieveUpdateDestroyAPIView.as_view(), name='exam_detail'),
 
 ]
 

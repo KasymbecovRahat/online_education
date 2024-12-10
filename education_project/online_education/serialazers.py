@@ -106,13 +106,25 @@ class AssignmentSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['']
+        fields = ['question_name', 'var1', 'var2',
+                  'var3', 'var4']
 
 
-class ExamSerializer(serializers.ModelSerializer):
+class ExamInstructorSerializer(serializers.ModelSerializer):
+    question = QuestionSerializer(many=True, read_only=True)
+
     class Meta:
         model = Exam
-        fields = '__all__'
+        fields = ['title', 'passing_score', 'duration',
+                  'question']
+
+
+class ExamStudentsSerializer(serializers.ModelSerializer):
+    question = QuestionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Exam
+        fields = ['question', 'title']
 
 
 class CertificateSerializer(serializers.ModelSerializer):
